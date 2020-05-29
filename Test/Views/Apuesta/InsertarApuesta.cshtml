@@ -1,0 +1,130 @@
+﻿@model Test.Entity.Apuesta
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InsertarApuesta</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Apuesta</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.cliente)
+            @Html.HiddenFor(model => model.encuentro)
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.cliente, new { htmlAttributes = new { @class = "form-control disabledClass" } })
+
+                        @Html.ValidationMessageFor(model => model.cliente, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.encuentro, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.encuentro, new { htmlAttributes = new { @class = "form-control disabledClass" } })
+                        @Html.ValidationMessageFor(model => model.encuentro, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.eleccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.eleccion, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownList("eleccion", ViewData["eleccion"] as SelectList, new { @class = "form-control", onchange = "sumar();" })
+                    @Html.ValidationMessageFor(model => model.eleccion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.monto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.monto, new { htmlAttributes = new { @class = "form-control", min = 1, @value = "1", step = "1", onchange = "sumar();" } })
+                    @Html.ValidationMessageFor(model => model.monto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="h3 alert-success">Premio: </label>
+                <span id="premio" class="h3 text-success">0</span>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Realizar Apuesta" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+    <div>
+        <h4>Probabilidades</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.Label("Local")
+                </th>
+                <th>
+                    @Html.Label("Empate")
+                </th>
+                <th>
+                    @Html.Label("Visita")
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @TempData["Local"]
+                </td>
+                <td>
+                    @TempData["Empate"]
+                </td>
+                <td>
+                    @TempData["Visita"]
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        @Html.ActionLink("Cancelar", "../Encuentro/ListarEncuentros")
+    </div>
+
+    <script type="text/javascript">
+        function sumar() {
+        var monto = document.getElementById('monto').value;
+        var total = 0;
+        total = parseInt(monto); //obtengo la cantidad a apostar
+
+        var eleccion = document.getElementById('eleccion');
+        var item = eleccion.options[eleccion.selectedIndex].value;
+        alert(monto);
+        if (item == 'Local')// segun sea la eleccion del usuario toma la probabilidad enviada desde el controlador
+            total = (total * parseFloat(@TempData["LocalD"].ToString())) - parseInt(monto);
+                else if (item == 'Empate')
+            total = (total * parseFloat(@TempData["EmpateD"].ToString())) - parseInt(monto);
+                else
+        total = (total * parseFloat(@TempData["VisitaD"].ToString())) - parseInt(monto);
+
+        document.getElementById('premio').innerHTML = total;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿@model Test.Entity.Encuentro
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ObtenerEncuentro</title>
+</head>
+<body>
+    <div>
+        <h4>Encuentro</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.local)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.local)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.visitante)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.visitante)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.jugado)
+            </dt>
+    
+            @*<dd>
+                @Html.DisplayFor(model => model.jugado)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.marcador_local)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.marcador_local)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.marcador_visitante)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.marcador_visitante)
+            </dd>*@
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.probabilidad_local)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.probabilidad_local)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.probabilidad_empate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.probabilidad_empate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.probabilidad_visita)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.probabilidad_visita)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.jornada)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.jornada)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @*@Html.ActionLink("Editar", "ActualizarEncuentro", new { id = Model.id }) |*@
+        @Html.ActionLink("Apostar", "../Apuesta/InsertarApuesta", new { id = Model.id }) |
+        @Html.ActionLink("Principal", "ListarEncuentros")
+    </p>
+</body>
+</html>

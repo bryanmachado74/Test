@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Test.Entity.Encuentro>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListarEncuentros</title>
+</head>
+<body>
+    @*<p>
+            @Html.ActionLink("Crear nuevo", "InsertarEncuentro")
+        </p>*@
+    <p>
+        @Html.ActionLink("Ver mis apuestas", "../Apuesta/ListarApuesta")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.id)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.local)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.visitante)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.jugado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marcador_local)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marcador_visitante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.probabilidad_local)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.probabilidad_empate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.probabilidad_visita)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.jornada)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.id)*@
+                    @Html.HiddenFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.visitante)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.jugado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marcador_local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marcador_visitante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_empate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_visita)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.jornada)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Editar", "ActualizarEncuentro", new { id = item.id }) |*@
+                    @Html.ActionLink("Ver en US Odds", "ObtenerEncuentroUSOdds", new { id = item.id }) |
+                    @Html.ActionLink("Ver en Decimal Odds", "ObtenerEncuentroDecimalOdds", new { id = item.id })
+                    @*@Html.ActionLink("Borrar", "BorrarEncuentro", new { id = item.id })*@
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
