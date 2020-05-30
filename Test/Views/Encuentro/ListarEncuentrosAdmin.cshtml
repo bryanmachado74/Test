@@ -12,11 +12,29 @@
     <title>ListarEncuentrosAdmin</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Agregar un partido nuevo", "InsertarEncuentro")
-    </p>
+    <h3>Administrador</h3>
+    <div class="row">
+        <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.ActionLink("Agregar Encuentro", "InsertarEncuentro")
+        </p>
+
+        @if (TempData["success"] != null)
+        {
+            if (TempData["success"].Equals("true"))
+            {
+                <span class="text-success h5 col-lg-6 col-md-6 col-sm-6 col-xs-6">@TempData["msj"]</span>
+            }
+            else { 
+                <span class="text-danger h5 col-lg-6 col-md-6 col-sm-6 col-xs-6">@TempData["msj"]</span>
+            }
+
+        }
+    </div>
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.local)
             </th>
@@ -24,7 +42,7 @@
                 @Html.DisplayNameFor(model => model.visitante)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.jugado)
+                @Html.DisplayNameFor(model => model.estado)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.marcador_local)
@@ -46,44 +64,48 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.local)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.visitante)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jugado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.marcador_local)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.marcador_visitante)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.probabilidad_local)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.probabilidad_empate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.probabilidad_visita)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jornada)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "ActualizarEncuentro", new { id=item.id }) |
-                @*@Html.ActionLink("Details", "Details", new { id=item.id }) |*@
-                @Html.ActionLink("Eliminar", "BorrarEncuentro", new { id=item.id })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.visitante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marcador_local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marcador_visitante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_local)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_empate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.probabilidad_visita)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jornada)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "ActualizarEncuentro", new { id = item.id }) |
+                    @*@Html.ActionLink("Details", "Details", new { id=item.id }) |*@
+                    @Html.ActionLink("Eliminar", "BorrarEncuentro", new { id = item.id })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

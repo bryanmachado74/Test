@@ -17,11 +17,11 @@ namespace Test.Entity
         [Display(Name = "No. Juego")]
         public int encuentro { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe seleccionar una de las tres opciones")]
         [Display(Name = "Apuesta seleccionada")]
         public string eleccion { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El monto a apostar debe ser entero y mayor a 1")]
         [Display(Name = "Dolares a apostar")]
         public int monto { get; set; }
 

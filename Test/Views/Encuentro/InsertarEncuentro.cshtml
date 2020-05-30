@@ -14,12 +14,12 @@
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-    
-    
-    @using (Html.BeginForm()) 
+
+    <h3>Administrador</h3>
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
             <h4>Encuentro</h4>
             <hr />
@@ -31,7 +31,7 @@
                     @Html.ValidationMessageFor(model => model.local, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.visitante, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -39,31 +39,31 @@
                     @Html.ValidationMessageFor(model => model.visitante, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             @*<div class="form-group">
-                @Html.LabelFor(model => model.jugado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.jugado, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.jugado, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.jugado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.jugado, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.jugado, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.marcador_local, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.marcador_local, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.marcador_local, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.marcador_local, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.marcador_local, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.marcador_local, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.marcador_visitante, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.marcador_visitante, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.marcador_visitante, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-    
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.marcador_visitante, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.marcador_visitante, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.marcador_visitante, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
             <div class="form-group">
                 @Html.LabelFor(model => model.probabilidad_local, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -71,7 +71,7 @@
                     @Html.ValidationMessageFor(model => model.probabilidad_local, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.probabilidad_empate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -79,7 +79,7 @@
                     @Html.ValidationMessageFor(model => model.probabilidad_empate, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.probabilidad_visita, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -87,7 +87,7 @@
                     @Html.ValidationMessageFor(model => model.probabilidad_visita, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.jornada, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -95,7 +95,7 @@
                     @Html.ValidationMessageFor(model => model.jornada, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Crear" class="btn btn-default" />
@@ -103,9 +103,20 @@
             </div>
         </div>
     }
-    
-    <div>
-        @Html.ActionLink("Principal", "ListarEncuentros")
+
+    <div class="row">
+        <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.ActionLink("Cancelar", "ListarEncuentrosAdmin")
+        </p>
+
+        @if (TempData["success"] != null)
+        {
+            if (TempData["success"].Equals("false"))
+            {
+                <span class="text-danger h5 col-lg-6 col-md-6 col-sm-6 col-xs-6">@TempData["msj"]</span>
+            }
+
+        }
     </div>
 </body>
 </html>
