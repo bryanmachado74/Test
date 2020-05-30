@@ -52,6 +52,10 @@ namespace Test.Controllers
             apuesta.cliente = 1; // valor quemado debido a que no esta implementada la sesion
             apuesta.encuentro = encuentro.id;
 
+            TempData["LocalD"] = 100 / encuentro.probabilidad_local;
+            TempData["EmpateD"] = 100 / encuentro.probabilidad_empate;
+            TempData["VisitaD"] = 100 / encuentro.probabilidad_visita;
+
             int odds = Convert.ToInt32(Request.QueryString["odds"]);
             if (odds == 1)
                 encuentro.DecimalOdds();

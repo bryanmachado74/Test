@@ -108,23 +108,33 @@
     </div>
 
     <script type="text/javascript">
-        function sumar() {
-        var monto = document.getElementById('monto').value;
-        var total = 0;
-        total = parseInt(monto); //obtengo la cantidad a apostar
 
-        var eleccion = document.getElementById('eleccion');
-        var item = eleccion.options[eleccion.selectedIndex].value;
-        alert(monto);
-        if (item == 'Local')// segun sea la eleccion del usuario toma la probabilidad enviada desde el controlador
-            total = (total * parseFloat(@TempData["LocalD"].ToString())) - parseInt(monto);
-                else if (item == 'Empate')
-            total = (total * parseFloat(@TempData["EmpateD"].ToString())) - parseInt(monto);
-                else
-        total = (total * parseFloat(@TempData["VisitaD"].ToString())) - parseInt(monto);
+        function truncar(n) {
+            let t = n.toString();
+            let regex = /(\d*.\d{0,2})/;
+            return t.match(regex)[0];
+        }
 
-        document.getElementById('premio').innerHTML = total;
-    }
+        function sumar()
+        {
+            var monto = document.getElementById('monto').value;
+            var total = 0;
+            total = parseInt(monto); //obtengo la cantidad a apostar
+
+            var eleccion = document.getElementById('eleccion');
+            var item = eleccion.options[eleccion.selectedIndex].value;
+            alert(monto);
+            if (item == 'Local')// segun sea la eleccion del usuario toma la probabilidad enviada desde el controlador
+                total = (total * parseFloat(@TempData["LocalD"].ToString())) - parseInt(monto);
+                    else if (item == 'Empate')
+                total = (total * parseFloat(@TempData["EmpateD"].ToString())) - parseInt(monto);
+                    else
+            total = (total * parseFloat(@TempData["VisitaD"].ToString())) - parseInt(monto);
+
+            document.getElementById('premio').innerHTML = truncar(total) + 'dolares!';
+        }
+
+        
     </script>
 </body>
 </html>
