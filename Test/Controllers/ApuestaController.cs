@@ -36,9 +36,28 @@ namespace Test.Controllers
         public ActionResult ObtenerApuesta(int id)
         {
             ApuestaModel variModel = new ApuestaModel();
+            Apuesta apuesta = variModel.obtenerApuesta(id);
+            
+            EncuentroModel encModel = new EncuentroModel();
+            Encuentro encuentro = encModel.obtenerEncuentro(apuesta.encuentro);
+            ViewData["local"] = encuentro.local;
+            ViewData["visita"] = encuentro.visitante;
+            ViewData["mlocal"] = encuentro.marcador_local;
+            ViewData["mvisita"] = encuentro.marcador_visitante;
+            encuentro.actualizarEstado();
+            ViewData["estado"] = encuentro.estado;
+
+            //calcular la ganancia
+            if (apuesta.eleccion.Equals("Local"))
+                apuesta.calcularGanacia(encuentro.probabilidad_local);
+            else if (apuesta.eleccion.Equals("Empate"))
+                apuesta.calcularGanacia(encuentro.probabilidad_empate);
+            else
+                apuesta.calcularGanacia(encuentro.probabilidad_visita);
+
             ModelState.Clear();
 
-            return View(variModel.obtenerApuesta(id));
+            return View(apuesta);
         }
 
         public ActionResult InsertarApuesta(int id)
@@ -51,6 +70,10 @@ namespace Test.Controllers
 
             apuesta.cliente = 1; // valor quemado debido a que no esta implementada la sesion
             apuesta.encuentro = encuentro.id;
+
+            TempData["LocalD"] = 100 / encuentro.probabilidad_local;
+            TempData["EmpateD"] = 100 / encuentro.probabilidad_empate;
+            TempData["VisitaD"] = 100 / encuentro.probabilidad_visita;
 
             int odds = Convert.ToInt32(Request.QueryString["odds"]);
             if (odds == 1)
@@ -76,7 +99,7 @@ namespace Test.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertarApuesta(Entity.Apuesta apuesta)
+        public ActionResult InsertarApuesta(Apuesta apuesta)
         {
             try
             {
@@ -86,74 +109,78 @@ namespace Test.Controllers
                     if (model.insertarApuesta(apuesta))
                     {
                         TempData["success"] = "true";
+                        TempData["msj"] = "La Apuesta se a creado satisfactoriamente.";
                         return RedirectToAction("ListarApuesta");
                     }
                     else
                     {
-                        TempData["error"] = "false";
+                        TempData["success"] = "false";
+                        TempData["msj"] = "Ha ocurrido un error! Pongase en contacto con el administrador.";
                     }
                 }
                 return View();
             }
             catch
             {
+                TempData["success"] = "false";
+                TempData["msj"] = "Ha ocurrido un error! Pongase en contacto con el administrador.";
                 return View();
             }
         }
 
-        public ActionResult ActualizarApuesta(int id)
-        {
-            ApuestaModel variModel = new ApuestaModel();
-            ModelState.Clear();
+        //public ActionResult ActualizarApuesta(int id)
+        //{
+        //    ApuestaModel variModel = new ApuestaModel();
+        //    ModelState.Clear();
 
-            return View(variModel.obtenerApuesta(id));
-        }
+        //    return View(variModel.obtenerApuesta(id));
+        //}
 
-        [HttpPost]
-        public ActionResult ActualizarApuesta(Entity.Apuesta apuesta)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    ApuestaModel model = new ApuestaModel();
-                    if (model.actualizarApuesta(apuesta))
-                    {
-                        TempData["success"] = "true";
-                        return RedirectToAction("ListarApuesta");
-                    }
-                    else
-                    {
-                        TempData["error"] = "false";
-                    }
-                }
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult ActualizarApuesta(Entity.Apuesta apuesta)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            ApuestaModel model = new ApuestaModel();
+        //            if (model.actualizarApuesta(apuesta))
+        //            {
+        //                TempData["success"] = "true";
+        //                return RedirectToAction("ListarApuesta");
+        //            }
+        //            else
+        //            {
+        //                TempData["error"] = "false";
+        //            }
+        //        }
+        //        return View();
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        public ActionResult BorrarApuesta(int id)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    ApuestaModel e_model = new ApuestaModel();
-                    if (e_model.BorrarApuesta(id))
-                    {
-                        ViewBag.AlertMsg = "Apuesta Eliminado";
-                    }
-                }
-                return RedirectToAction("ListarApuesta");
-            }//end try
-            catch
-            {
-                return RedirectToAction("ListarApuesta");
-            }//catch
+        //public ActionResult BorrarApuesta(int id)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            ApuestaModel e_model = new ApuestaModel();
+        //            if (e_model.BorrarApuesta(id))
+        //            {
+        //                ViewBag.AlertMsg = "Apuesta Eliminado";
+        //            }
+        //        }
+        //        return RedirectToAction("ListarApuesta");
+        //    }//end try
+        //    catch
+        //    {
+        //        return RedirectToAction("ListarApuesta");
+        //    }//catch
 
-        }
+        //}
     }//end class
 }//end namespace
