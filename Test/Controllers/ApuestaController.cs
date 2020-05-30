@@ -37,16 +37,24 @@ namespace Test.Controllers
         {
             ApuestaModel variModel = new ApuestaModel();
             Apuesta apuesta = variModel.obtenerApuesta(id);
-
+            
             EncuentroModel encModel = new EncuentroModel();
             Encuentro encuentro = encModel.obtenerEncuentro(apuesta.encuentro);
-
             ViewData["local"] = encuentro.local;
             ViewData["visita"] = encuentro.visitante;
             ViewData["mlocal"] = encuentro.marcador_local;
             ViewData["mvisita"] = encuentro.marcador_visitante;
             encuentro.actualizarEstado();
             ViewData["estado"] = encuentro.estado;
+
+            //calcular la ganancia
+            if (apuesta.eleccion.Equals("Local"))
+                apuesta.calcularGanacia(encuentro.probabilidad_local);
+            else if (apuesta.eleccion.Equals("Empate"))
+                apuesta.calcularGanacia(encuentro.probabilidad_empate);
+            else
+                apuesta.calcularGanacia(encuentro.probabilidad_visita);
+
             ModelState.Clear();
 
             return View(apuesta);
