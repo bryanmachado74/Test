@@ -4,6 +4,7 @@ using System.Deployment.Internal;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Test.Entity;
 using Test.Models;
 
@@ -11,13 +12,26 @@ namespace Test.Controllers
 {
     public class EncuentroController : Controller
     {
-        public ActionResult ListarEncuentros()
+        public ActionResult ListarEncuentros(string id)
         {
-            EncuentroModel variModel = new EncuentroModel();
             
+            
+            if (id != null)
+            {
+                if (id.Equals("Admin")) { return RedirectToAction("ListarEncuentrosAdmin"); }
+            }
+
+            EncuentroModel variModel = new EncuentroModel();
+
+            List<Encuentro> list = variModel.listarEncuentro();
+            foreach (Encuentro encuentro in list)
+            {
+                encuentro.actualizarEstado();
+            }
+
             ModelState.Clear();
 
-            return View(variModel.listarEncuentro());
+            return View(list);
         }
 
         public ActionResult ListarEncuentrosAdmin()

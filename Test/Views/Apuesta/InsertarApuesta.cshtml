@@ -24,29 +24,14 @@
             <h4>Apuesta</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             @Html.HiddenFor(model => model.cliente)
+
             @Html.HiddenFor(model => model.encuentro)
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.cliente, new { htmlAttributes = new { @class = "form-control disabledClass" } })
-
-                        @Html.ValidationMessageFor(model => model.cliente, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.encuentro, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.encuentro, new { htmlAttributes = new { @class = "form-control disabledClass" } })
-                        @Html.ValidationMessageFor(model => model.encuentro, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.eleccion, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @*@Html.EditorFor(model => model.eleccion, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.DropDownList("eleccion", ViewData["eleccion"] as SelectList, new { @class = "form-control", onchange = "sumar();" })
                     @Html.ValidationMessageFor(model => model.eleccion, "", new { @class = "text-danger" })
                 </div>
@@ -61,7 +46,7 @@
             </div>
 
             <div class="form-group">
-                <label class="h3 alert-success">Premio: </label>
+                <label class="h3">Premio: </label>
                 <span id="premio" class="h3 text-success">0</span>
             </div>
 
@@ -123,7 +108,6 @@
 
             var eleccion = document.getElementById('eleccion');
             var item = eleccion.options[eleccion.selectedIndex].value;
-            alert(monto);
             if (item == 'Local')// segun sea la eleccion del usuario toma la probabilidad enviada desde el controlador
                 total = (total * parseFloat(@TempData["LocalD"].ToString())) - parseInt(monto);
                     else if (item == 'Empate')
@@ -131,7 +115,7 @@
                     else
             total = (total * parseFloat(@TempData["VisitaD"].ToString())) - parseInt(monto);
 
-            document.getElementById('premio').innerHTML = truncar(total) + 'dolares!';
+            document.getElementById('premio').innerHTML = truncar(total) + ' dolares!';
         }
 
         

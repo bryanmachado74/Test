@@ -19,39 +19,88 @@
             <dt>
                 @Html.DisplayNameFor(model => model.cliente)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.cliente)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.encuentro)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.encuentro)
             </dd>
-    
+
+            <dt>
+                Local
+            </dt>
+
+            <dd>
+                @ViewData["local"]
+                @*<div class="display-field">No. Apuesta</div>*@
+            </dd>
+
+            <dt>
+                Visita
+            </dt>
+
+            <dd>
+                @ViewData["visita"]
+            </dd>
+
+            <dt>
+                Marcador Local
+            </dt>
+
+            <dd>
+                @ViewData["mlocal"]
+            </dd>
+
+            <dt>
+                Marcador Visita
+            </dt>
+
+            <dd>
+                @ViewData["mvisita"]
+            </dd>
+
+            <dt>
+                Estado
+            </dt>
+
+            <dd>
+                @ViewData["estado"]
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.eleccion)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.eleccion)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.monto)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.monto)
             </dd>
-    
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ganancia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ganancia)
+            </dd>
+
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Editar", "ActualizarApuesta", new { id = Model.id }) |
+        @*@Html.ActionLink("Editar", "ActualizarApuesta", new { id = Model.id }) |*@
         @Html.ActionLink("Volver", "ListarApuesta")
     </p>
 </body>

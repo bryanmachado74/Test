@@ -12,17 +12,34 @@
     <title>ListarApuesta</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Hacer una apuesta", "../Encuentro/ListarEncuentros")
-    </p>
+
+    <div class="row">
+        <p>
+            @Html.ActionLink("Hacer una apuesta", "../Encuentro/ListarEncuentros")
+        </p>
+
+        @if (TempData["success"] != null)
+        {
+            if (TempData["success"].Equals("true"))
+            {
+                <span class="text-success h5 col-lg-6 col-md-6 col-sm-6 col-xs-6">@TempData["msj"]</span>
+            }
+            else
+            {
+                <span class="text-danger h5 col-lg-6 col-md-6 col-sm-6 col-xs-6">@TempData["msj"]</span>
+            }
+
+        }
+    </div>
+
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.id)
             </th>
             @*<th>
-            @Html.DisplayNameFor(model => model.cliente)
-        </th>*@
+                    @Html.DisplayNameFor(model => model.cliente)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.encuentro)
             </th>
@@ -37,35 +54,36 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.cliente)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.encuentro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.eleccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.monto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ganancia)
-        </td>
-        <td>
-            @*@Html.ActionLink("Editar", "ActualizarApuesta", new { id=item.id }) |*@
-            @Html.ActionLink("Ver apuesta", "ObtenerApuesta", new { id = item.id }) |
-            @Html.ActionLink("Eliminar", "BorrarApuesta", new { id = item.id })
-        </td>
-    </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.cliente)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.encuentro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.eleccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.monto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ganancia)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Editar", "ActualizarApuesta", new { id=item.id }) |*@
+                    @Html.ActionLink("Ver apuesta", "ObtenerApuesta", new { id = item.id }) |
+                    @*@Html.ActionLink("Eliminar", "BorrarApuesta", new { id = item.id })*@
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
